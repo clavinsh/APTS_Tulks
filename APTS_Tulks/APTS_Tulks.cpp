@@ -3,6 +3,7 @@
 #include <fstream>
 
 const int MAX_CSTRING_SIZE = 21;
+const float LOAD_FACTOR = 0.75;
 
 class Map {
 private:
@@ -20,13 +21,15 @@ private:
     int size;
     int capacity;
 
+
+    // hash function for bucket determination
+    // ensures on average constant lookup, insert, delete
     size_t hash(const char* key) {
+        
         size_t value = 0;
 
+        // multiplies by 33: value << 5 is 2^5 = 32; 32*value+value = 33*value
         while (*key) {
-            // multiplies the number by 33 (a prime) and adds the ascii char value
-            // << 5 - 2^5 = 32
-            // + value = 32*value + value = 33*value
             value = (value << 5) + value + *key++;
         }
 
@@ -35,7 +38,7 @@ private:
 
     // copies the contents of map into a resized array, if the used space exceeds load factor
     void resize() {
-        if (size >= 0.75 * capacity) {
+        if (size >= LOAD_FACTOR * capacity) {
             int newCapacity = capacity * 2;
             Node** newBuckets = new Node * [newCapacity];
 
@@ -127,8 +130,6 @@ public:
     }
 };
 
-
-
 int main() {
     FILE* input_file = nullptr;
     FILE* output_file = nullptr;
@@ -141,24 +142,28 @@ int main() {
         return -1;
     }
 
-    // faila 'vārdnīcas' satura ielasīšana iekš Map
-
+    Map* map = new Map();
     char currentString[21];
 
-    while (!feof(input_file)) {
+    scanf_s("%s", currentString, (unsigned)_countof(currentString));
+
+
+    // putting the contents of the file into Map
+    while (strcmp(currentString, "<--") != 0 || strcmp(currentString, "-->")) {
+        char val[21];
+
+        scanf_s("%s", val, (unsigned)_countof(val));
+
+        map->put(currentString, val);
+
         scanf_s("%s", currentString, (unsigned)_countof(currentString));
-
-
-
-
-
-        printf(currentString);
     }
 
+    // the direction ('<--' or '-->') signifies whether to following text from file will need to be found/replaced by
+    // key or value (essentially should the keys and values should be logically swapped in the map)
+    bool direction = currentString[0] == '-' ? false : true;
 
-    // tālāk noskaidro virzienu --> vai <--
 
-    // tālāk iet pa vardam no fin caur map un beigās izved arā fout (katru vārdu atsevisķi)
 
     return 0;
 }
