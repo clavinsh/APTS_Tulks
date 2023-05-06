@@ -109,20 +109,21 @@ public:
 
     }
 
-    int get(const char* key, const char* value) {
+    const char* get(const char* key) {
         size_t hashValue = hash(key);
         int index = hashValue % capacity;
+
         Node* node = buckets[index];
 
         while (node != nullptr) {
-            if (strcmp(node->key, key) == 0 && strcmp(node->value, value) == 0) {
-                return node->count;
+            if (strcmp(node->key, key) == 0 ) {
+                return node->value;
             }
 
             node = node->next;
         }
 
-        return 0;
+        return nullptr;
     }
 };
 
