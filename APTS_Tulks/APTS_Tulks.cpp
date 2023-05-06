@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string.h>
+//#include <string.h>
 #include <fstream>
 
 const int MAX_CSTRING_SIZE = 21;
@@ -14,7 +14,6 @@ private:
         char value[MAX_CSTRING_SIZE];
         int count;
         size_t hashValue;
-        Node* next;
     };
 
     Node** buckets;
@@ -26,14 +25,14 @@ private:
     // ensures on average constant lookup, insert, delete
     size_t hash(const char* key) {
         
-        size_t value = 0;
+        size_t hValue = 0;
 
         // multiplies by 33: value << 5 is 2^5 = 32; 32*value+value = 33*value
         while (*key) {
-            value = (value << 5) + value + *key++;
+            hValue = (hValue << 5) + hValue + *key++;
         }
 
-        return value;
+        return hValue;
     }
 
     // copies the contents of map into a resized array, if the used space exceeds load factor
@@ -46,20 +45,15 @@ private:
 
             for (int i = 0; i < capacity; i++) {
                 Node* node = buckets[i];
-                while (node != nullptr) {
-                    Node* next = node->next;
+                if (node != nullptr) {
                     int index = node->hashValue % newCapacity;
-                    node->next = newBuckets[index];
                     newBuckets[index] = node;
-                    node = next;
                 }
             }
 
             delete[] buckets;
             buckets = newBuckets;
             capacity = newCapacity;
-
-
         }
     }
 
@@ -72,10 +66,8 @@ public:
     ~Map() {
         for (int i = 0; i < capacity; i++) {
             Node* node = buckets[i];
-            while (node != nullptr) {
-                Node* next = node->next;
+            if (node != nullptr) {
                 delete node;
-                node = next;
             }
         }
         delete[] buckets;
@@ -89,23 +81,18 @@ public:
 
         Node* node = buckets[index];
 
-        while (node != nullptr) {
-            if (strcmp(node->key, key) == 0 && strcmp(node->value, value) == 0) {
-                node->count++;
-                return;
-            }
-
-            node = node->next;
+        if (node != nullptr && strcmp(node->key, key) == 0) {
+            strncpy_s(node->value, value, MAX_CSTRING_SIZE);
+            return;
         }
 
         Node* newNode = new Node();
 
-        strncpy(newNode->key, key, MAX_CSTRING_SIZE);
-        strncpy(newNode->value, value, MAX_CSTRING_SIZE);
+        strncpy_s(newNode->key, key, MAX_CSTRING_SIZE);
+        strncpy_s(newNode->value, value, MAX_CSTRING_SIZE);
 
         newNode->count = 1;
         newNode->hashValue = hashValue;
-        newNode->next = buckets[index];
 
         buckets[index] = newNode;
         size++;
@@ -118,15 +105,25 @@ public:
 
         Node* node = buckets[index];
 
-        while (node != nullptr) {
-            if (strcmp(node->key, key) == 0 ) {
-                return node->value;
-            }
-
-            node = node->next;
+        if (node != nullptr && strcmp(node->key, key) == 0) {
+            return node->value;
         }
 
         return nullptr;
+    }
+
+    void invert() {
+        Map* inverted = new Map();
+
+        for (int i = 0; i < capacity; i++) {
+            Node* node = buckets[i];
+
+            inverted->put(node->value, node->key);
+        }
+
+        std::swap(buckets, inverted->buckets);
+        std::swap(size, inverted->size);
+        std::swap(capacity, inverted->capacity);
     }
 };
 
@@ -147,9 +144,9 @@ int main() {
 
     scanf_s("%s", currentString, (unsigned)_countof(currentString));
 
-
     // putting the contents of the file into Map
-    while (strcmp(currentString, "<--") != 0 || strcmp(currentString, "-->")) {
+    // || strcmp(currentString, "<--") != 0 || strcmp(currentString, "-->") != 0
+    while ((currentString[0] != '-') && (currentString[0] != '<')) {
         char val[21];
 
         scanf_s("%s", val, (unsigned)_countof(val));
@@ -161,9 +158,26 @@ int main() {
 
     // the direction ('<--' or '-->') signifies whether to following text from file will need to be found/replaced by
     // key or value (essentially should the keys and values should be logically swapped in the map)
-    bool direction = currentString[0] == '-' ? false : true;
+    //bool direction = currentString[0] == '-' ? false : true;
+
+    if (currentString[0] == '<') {
+        map->invert();
+    }
 
 
+    while (!feof(input_file)) {
+        const char* value = new char[21];
+        scanf_s("%s", currentString, (unsigned)_countof(currentString));
+
+        value = map->get(currentString);
+
+        if (value != nullptr) {
+            printf("%s ", value);
+        }
+        else {
+            printf("?%s ", currentString);
+        }
+    }
 
     return 0;
 }
