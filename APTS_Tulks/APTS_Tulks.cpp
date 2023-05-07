@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <utility>
 
 const int MAX_CSTRING_SIZE = 21;
 const float LOAD_FACTOR = 0.75;
@@ -68,9 +67,8 @@ private:
     int size;
     int capacity;
 
-
     // hash function for bucket determination
-    // ensures on average constant lookup, insert, delete
+    // ensures constant lookup, insert, delete if no collisions 
     size_t hash(const char* key) {
         size_t hValue = 5381;
         int length = strlen(key);
@@ -103,6 +101,40 @@ private:
         }
     }
 
+    void setBuckets(Node** invBuckets, int invCapacity, int invSize) {
+        clear();
+
+        buckets = new Node * [invCapacity];
+        memset(buckets, 0, invCapacity * sizeof(Node*));
+
+        for (int i = 0; i < invCapacity; i++) {
+            Node* invNode = invBuckets[i];
+            Node* prevNode = nullptr;
+            Node* newNode = nullptr;
+
+            while (invNode != nullptr) {
+                newNode = new Node();
+                strncpy(newNode->key, invNode->key, MAX_CSTRING_SIZE);
+                strncpy(newNode->value, invNode->value, MAX_CSTRING_SIZE);
+                newNode->hashValue = invNode->hashValue;
+                newNode->next = nullptr;
+
+                if (prevNode == nullptr) {
+                    buckets[i] = newNode;
+                }
+                else {
+                    prevNode->next = newNode;
+                }
+                prevNode = newNode;
+
+                invNode = invNode->next;
+            }
+        }
+
+        capacity = invCapacity;
+        size = invSize;
+    }
+
 public:
     Map() : size(0), capacity(DEFAULT_CAPACITY) {
         buckets = new Node * [capacity];
@@ -110,6 +142,10 @@ public:
     }
 
     ~Map() {
+        clear();
+    }
+
+    void clear() {
         for (int i = 0; i < capacity; i++) {
             Node* node = buckets[i];
             if (node != nullptr) {
@@ -170,6 +206,7 @@ public:
         return nullptr;
     }
 
+
     void invert() {
         Map* inverted = new Map();
 
@@ -183,14 +220,7 @@ public:
             }
         }
 
-        std::swap(buckets, inverted->buckets);
-        //std::swap(size, inverted->size);
-        //std::swap(capacity, inverted->capacity);
-
-        //buckets = inverted->buckets;
-        size = inverted->size;
-        capacity = inverted->capacity;
-
+        setBuckets(inverted->buckets, inverted->capacity, inverted->size);
 
         delete inverted;
     }
