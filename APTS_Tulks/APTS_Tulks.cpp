@@ -1,6 +1,7 @@
 #include <stdio.h>
 //#include <string.h>
 #include <fstream>
+//#include <iostream>
 
 const int MAX_CSTRING_SIZE = 21;
 const float LOAD_FACTOR = 0.75;
@@ -12,7 +13,8 @@ private:
     struct Node {
         char key[MAX_CSTRING_SIZE];
         char value[MAX_CSTRING_SIZE];
-        int count;
+        //int count;
+        Node* next;
         size_t hashValue;
     };
 
@@ -24,14 +26,12 @@ private:
     // hash function for bucket determination
     // ensures on average constant lookup, insert, delete
     size_t hash(const char* key) {
-        
-        size_t hValue = 0;
-
-        // multiplies by 33: value << 5 is 2^5 = 32; 32*value+value = 33*value
-        while (*key) {
-            hValue = (hValue << 5) + hValue + *key++;
+        size_t hValue = 5381;
+        int length = strlen(key);
+        for (int i = 0; i < length; i++) {
+            hValue = ((hValue << 5) + hValue) + key[i];
         }
-
+        hValue += length;
         return hValue;
     }
 
@@ -81,22 +81,31 @@ public:
 
         Node* node = buckets[index];
 
-        if (node != nullptr && strcmp(node->key, key) == 0) {
-            strncpy_s(node->value, value, MAX_CSTRING_SIZE);
+        if (node == nullptr) {
+            Node* newNode = new Node();
+
+            strncpy_s(newNode->key, key, MAX_CSTRING_SIZE);
+            strncpy_s(newNode->value, value, MAX_CSTRING_SIZE);
+
+            newNode->hashValue = hashValue;
+            buckets[index] = newNode;
+            size++;
             return;
         }
 
-        Node* newNode = new Node();
+        // for bucket collision situations, get to the end of the linked list
+        while (node->next != nullptr) {
+            node = node->next;
+        }
 
+        Node* newNode = new Node();
         strncpy_s(newNode->key, key, MAX_CSTRING_SIZE);
         strncpy_s(newNode->value, value, MAX_CSTRING_SIZE);
-
-        newNode->count = 1;
         newNode->hashValue = hashValue;
-
-        buckets[index] = newNode;
+        node->next = newNode;
         size++;
 
+        return;
     }
 
     const char* get(const char* key) {
@@ -105,8 +114,11 @@ public:
 
         Node* node = buckets[index];
 
-        if (node != nullptr && strcmp(node->key, key) == 0) {
-            return node->value;
+        while (node != nullptr) {
+            if (strcmp(node->key, key) == 0) {
+                return node->value;
+            }
+            node = node->next;
         }
 
         return nullptr;
@@ -118,13 +130,41 @@ public:
         for (int i = 0; i < capacity; i++) {
             Node* node = buckets[i];
 
-            inverted->put(node->value, node->key);
+            while (node != nullptr) {
+                inverted->put(node->value, node->key);
+
+                node = node->next;
+            }
         }
 
         std::swap(buckets, inverted->buckets);
         std::swap(size, inverted->size);
         std::swap(capacity, inverted->capacity);
+
+        delete inverted;
     }
+
+    //void print() {
+    //    std::cout << "map contents" << std::endl;
+    //    for (int i = 0; i < capacity; i++) {
+    //        Node* n = buckets[i];
+    //        
+    //        if (n == nullptr) {
+    //            std::cout << i << " nullptr" << std::endl;
+    //            continue;
+    //        }
+
+    //        while (n != nullptr) {
+    //            std::cout << i << " key: " << n->key << " value: " << n->value << ";    ";
+
+    //            n = n->next;
+    //        }
+
+    //        std::cout << std::endl;
+    //    }
+
+    //    std::cout << "map end" << std::endl;
+    //}
 };
 
 int main() {
@@ -163,7 +203,6 @@ int main() {
     if (currentString[0] == '<') {
         map->invert();
     }
-
 
     while (!feof(input_file)) {
         const char* value = new char[21];

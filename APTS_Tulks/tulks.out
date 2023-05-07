@@ -1,0 +1,251 @@
+map contents
+0 nullptr
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    
+4 nullptr
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 nullptr
+11 nullptr
+12 nullptr
+13 nullptr
+14 nullptr
+15 nullptr
+map end
+map contents
+0 nullptr
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    
+4 nullptr
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    
+11 nullptr
+12 nullptr
+13 nullptr
+14 nullptr
+15 nullptr
+map end
+map contents
+0 nullptr
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    
+4 key: skola value: school;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    
+11 nullptr
+12 nullptr
+13 nullptr
+14 nullptr
+15 nullptr
+map end
+map contents
+0 nullptr
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    
+4 key: skola value: school;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    
+11 nullptr
+12 nullptr
+13 nullptr
+14 nullptr
+15 key: vakar value: yesterday;    
+map end
+map contents
+0 nullptr
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    
+4 key: skola value: school;    4 key: puika value: boy;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    
+11 nullptr
+12 nullptr
+13 nullptr
+14 nullptr
+15 key: vakar value: yesterday;    
+map end
+map contents
+0 key: palikt value: stay;    
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    
+4 key: skola value: school;    4 key: puika value: boy;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    
+11 nullptr
+12 nullptr
+13 nullptr
+14 nullptr
+15 key: vakar value: yesterday;    
+map end
+map contents
+0 key: palikt value: stay;    
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    
+4 key: skola value: school;    4 key: puika value: boy;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    
+11 nullptr
+12 nullptr
+13 nullptr
+14 nullptr
+15 key: vakar value: yesterday;    15 key: istaba value: room;    
+map end
+map contents
+0 key: palikt value: stay;    
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    3 key: but value: be;    
+4 key: skola value: school;    4 key: puika value: boy;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    
+11 nullptr
+12 nullptr
+13 nullptr
+14 nullptr
+15 key: vakar value: yesterday;    15 key: istaba value: room;    
+map end
+map contents
+0 key: palikt value: stay;    
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    3 key: but value: be;    
+4 key: skola value: school;    4 key: puika value: boy;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    
+11 nullptr
+12 nullptr
+13 nullptr
+14 key: skaists value: beautiful;    
+15 key: vakar value: yesterday;    15 key: istaba value: room;    
+map end
+map contents
+0 key: palikt value: stay;    
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    3 key: but value: be;    
+4 key: skola value: school;    4 key: puika value: boy;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    
+11 nullptr
+12 nullptr
+13 key: sodien value: today;    
+14 key: skaists value: beautiful;    
+15 key: vakar value: yesterday;    15 key: istaba value: room;    
+map end
+map contents
+0 key: palikt value: stay;    
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    3 key: but value: be;    
+4 key: skola value: school;    4 key: puika value: boy;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    10 key: pudele value: bottle;    
+11 nullptr
+12 nullptr
+13 key: sodien value: today;    
+14 key: skaists value: beautiful;    
+15 key: vakar value: yesterday;    15 key: istaba value: room;    
+map end
+map contents
+0 key: palikt value: stay;    
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    3 key: but value: be;    
+4 key: skola value: school;    4 key: puika value: boy;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    10 key: pudele value: bottle;    10 key: un value: and;    
+11 nullptr
+12 nullptr
+13 key: sodien value: today;    
+14 key: skaists value: beautiful;    
+15 key: vakar value: yesterday;    15 key: istaba value: room;    
+map end
+map contents
+0 nullptr
+1 nullptr
+2 nullptr
+3 nullptr
+4 key: skola value: school;    4 key: puika value: boy;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    10 key: pudele value: bottle;    10 key: un value: and;    
+11 nullptr
+12 nullptr
+13 key: sodien value: today;    
+14 key: skaists value: beautiful;    
+15 key: kaudze value: heap;    
+16 key: palikt value: stay;    
+17 nullptr
+18 nullptr
+19 key: meitene value: girl;    19 key: but value: be;    
+20 nullptr
+21 nullptr
+22 nullptr
+23 nullptr
+24 nullptr
+25 nullptr
+26 nullptr
+27 nullptr
+28 nullptr
+29 nullptr
+30 nullptr
+31 key: vakar value: yesterday;    31 key: istaba value: room;    
+map end
+bottle ?piena ?bija ?viena ?jo ?blakus ?gluda ?siena ?skaista girl go ?pec ?siena ?ko boy yesterday and today ?plaut and heap ?kraut ?kraut 
