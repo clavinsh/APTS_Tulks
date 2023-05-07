@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <iostream>
 #include <utility>
 
 const int MAX_CSTRING_SIZE = 21;
@@ -195,34 +194,9 @@ public:
 
         delete inverted;
     }
-
-    void print() {
-        std::cout << "map contents" << std::endl;
-        for (int i = 0; i < capacity; i++) {
-            Node* n = buckets[i];
-            
-            if (n == nullptr) {
-                std::cout << i << " nullptr" << std::endl;
-                continue;
-            }
-
-            while (n != nullptr) {
-                std::cout << i << " key: " << n->key << " value: " << n->value << ";    ";
-
-                n = n->next;
-            }
-
-            std::cout << std::endl;
-        }
-
-        std::cout << "map end" << std::endl;
-    }
 };
 
 int main() {
-    //FILE* input_file = nullptr;
-    //FILE* output_file = nullptr;
-
     freopen("tulks.in", "r", stdin);
     freopen("tulks.out", "w", stdout);
 
@@ -247,13 +221,9 @@ int main() {
     // key or value (essentially should the keys and values should be logically swapped in the map)
     //bool direction = currentString[0] == '-' ? false : true;
 
-    map->print();
-
     if (currentString[0] == '<') {
         map->invert();
     }
-
-    map->print();
 
     bool lastString = false;
     while (scanf("%s", currentString) != EOF) {
@@ -277,7 +247,5 @@ int main() {
         }
     }
 
-
     return 0;
 }
-
