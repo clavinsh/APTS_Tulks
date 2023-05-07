@@ -221,29 +221,24 @@ int main() {
     //FILE* input_file = nullptr;
     //FILE* output_file = nullptr;
 
-    if (freopen("tulks.in", "r", stdin) != 0) {
-        return -1;
-    }
-
-    if (freopen("tulks.out", "w", stdout) != 0) {
-        return -1;
-    }
+    freopen("tulks.in", "r", stdin);
+    freopen("tulks.out", "w", stdout);
 
     Map* map = new Map();
     char currentString[MAX_CSTRING_SIZE];
 
-    scanf("%s", currentString);
+    scanf("%s", &currentString);
 
     // putting the contents of the file into Map
     // || strcmp(currentString, "<--") != 0 || strcmp(currentString, "-->") != 0
     while ((currentString[0] != '-') && (currentString[0] != '<')) {
         char val[MAX_CSTRING_SIZE];
 
-        scanf("%s", val);
+        scanf("%s", &val);
 
         map->put(currentString, val);
 
-        scanf("%s", currentString);
+        scanf("%s", &currentString);
     }
 
     // the direction ('<--' or '-->') signifies whether to following text from file will need to be found/replaced by
@@ -254,9 +249,10 @@ int main() {
         map->invert();
     }
 
+
     while (!feof(stdin)) {
         const char* value = new char[MAX_CSTRING_SIZE];
-        scanf("%s", currentString);
+        scanf("%s", &currentString);
 
         value = map->get(currentString);
 
