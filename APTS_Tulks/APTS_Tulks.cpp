@@ -2,7 +2,7 @@
 
 const int MAX_CSTRING_SIZE = 21;
 const float LOAD_FACTOR = 0.75;
-const int DEFAULT_CAPACITY = 16*16*16*16;
+const int DEFAULT_CAPACITY = 16*16*16*8;
 
 namespace helpers {
     size_t strlen(const char* str) {
