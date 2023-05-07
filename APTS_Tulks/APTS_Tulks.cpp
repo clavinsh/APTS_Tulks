@@ -249,20 +249,28 @@ int main() {
         map->invert();
     }
 
-
-    while (!feof(stdin)) {
-        const char* value = new char[MAX_CSTRING_SIZE];
-        scanf("%s", &currentString);
-
-        value = map->get(currentString);
+    bool lastString = false;
+    while (scanf("%s", currentString) != EOF) {
+        const char* value = map->get(currentString);
 
         if (value != nullptr) {
-            printf("%s ", value);
+            printf("%s", value);
         }
         else {
-            printf("?%s ", currentString);
+            printf("?%s", currentString);
+        }
+
+        if (lastString) {
+            printf("\n");
+            break;
+        }
+
+        lastString = feof(stdin);
+        if (!lastString) {
+            printf(" ");
         }
     }
+
 
     return 0;
 }
