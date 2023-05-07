@@ -1,10 +1,55 @@
 #include <stdio.h>
-//#include <string.h>
-#include <fstream>
-//#include <iostream>
 
 const int MAX_CSTRING_SIZE = 21;
 const float LOAD_FACTOR = 0.75;
+
+size_t strlen(const char* str) {
+    size_t size = 0;
+    while (*str != '\0') {
+        ++size;
+        ++str;
+    }
+    return size;
+}
+
+int strcmp(const char* str1, const char* str2) {
+    while (*str1 != '\0' && *str2 != '\0') {
+        if (*str1 != *str2) {
+            return (*str1 < *str2) ? -1 : 1;
+        }
+        str1++;
+        str2++;
+    }
+    return (*str1 == '\0' && *str2 == '\0') ? 0 : ((*str1 == '\0') ? -1 : 1);
+}
+
+void* memset(void* ptr, int value, size_t num) {
+    unsigned char* p = static_cast<unsigned char*>(ptr);
+    for (size_t i = 0; i < num; i++) {
+        p[i] = static_cast<unsigned char>(value);
+    }
+    return ptr;
+}
+
+char* strncpy(char* dest, const char* src, size_t n) {
+    char* dest_ptr = dest;
+    const char* src_ptr = src;
+
+    // Copy at most n characters
+    for (size_t i = 0; i < n; ++i) {
+        if (*src_ptr != '\0') {
+            *dest_ptr = *src_ptr;
+            ++src_ptr;
+        }
+        else {
+            // Pad destination with null characters
+            *dest_ptr = '\0';
+        }
+        ++dest_ptr;
+    }
+
+    return dest;
+}
 
 class Map {
 private:
@@ -84,8 +129,8 @@ public:
         if (node == nullptr) {
             Node* newNode = new Node();
 
-            strncpy_s(newNode->key, key, MAX_CSTRING_SIZE);
-            strncpy_s(newNode->value, value, MAX_CSTRING_SIZE);
+            strncpy(newNode->key, key, MAX_CSTRING_SIZE);
+            strncpy(newNode->value, value, MAX_CSTRING_SIZE);
 
             newNode->hashValue = hashValue;
             buckets[index] = newNode;
@@ -99,8 +144,8 @@ public:
         }
 
         Node* newNode = new Node();
-        strncpy_s(newNode->key, key, MAX_CSTRING_SIZE);
-        strncpy_s(newNode->value, value, MAX_CSTRING_SIZE);
+        strncpy(newNode->key, key, MAX_CSTRING_SIZE);
+        strncpy(newNode->value, value, MAX_CSTRING_SIZE);
         newNode->hashValue = hashValue;
         node->next = newNode;
         size++;
@@ -137,9 +182,14 @@ public:
             }
         }
 
-        std::swap(buckets, inverted->buckets);
-        std::swap(size, inverted->size);
-        std::swap(capacity, inverted->capacity);
+        //std::swap(buckets, inverted->buckets);
+        //std::swap(size, inverted->size);
+        //std::swap(capacity, inverted->capacity);
+
+        buckets = inverted->buckets;
+        size = inverted->size;
+        capacity = inverted->capacity;
+
 
         delete inverted;
     }
@@ -180,20 +230,20 @@ int main() {
     }
 
     Map* map = new Map();
-    char currentString[21];
+    char currentString[MAX_CSTRING_SIZE];
 
-    scanf_s("%s", currentString, (unsigned)_countof(currentString));
+    scanf_s("%s", currentString, MAX_CSTRING_SIZE);
 
     // putting the contents of the file into Map
     // || strcmp(currentString, "<--") != 0 || strcmp(currentString, "-->") != 0
     while ((currentString[0] != '-') && (currentString[0] != '<')) {
-        char val[21];
+        char val[MAX_CSTRING_SIZE];
 
-        scanf_s("%s", val, (unsigned)_countof(val));
+        scanf_s("%s", val, MAX_CSTRING_SIZE);
 
         map->put(currentString, val);
 
-        scanf_s("%s", currentString, (unsigned)_countof(currentString));
+        scanf_s("%s", currentString, MAX_CSTRING_SIZE);
     }
 
     // the direction ('<--' or '-->') signifies whether to following text from file will need to be found/replaced by
@@ -205,8 +255,8 @@ int main() {
     }
 
     while (!feof(input_file)) {
-        const char* value = new char[21];
-        scanf_s("%s", currentString, (unsigned)_countof(currentString));
+        const char* value = new char[MAX_CSTRING_SIZE];
+        scanf_s("%s", currentString, MAX_CSTRING_SIZE);
 
         value = map->get(currentString);
 
