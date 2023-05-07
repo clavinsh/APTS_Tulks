@@ -218,14 +218,14 @@ public:
 };
 
 int main() {
-    FILE* input_file = nullptr;
-    FILE* output_file = nullptr;
+    //FILE* input_file = nullptr;
+    //FILE* output_file = nullptr;
 
-    if (freopen_s(&input_file, "tulks.in", "r", stdin) != 0) {
+    if (freopen("tulks.in", "r", stdin) != 0) {
         return -1;
     }
 
-    if (freopen_s(&output_file, "tulks.out", "w", stdout) != 0) {
+    if (freopen("tulks.out", "w", stdout) != 0) {
         return -1;
     }
 
@@ -254,7 +254,7 @@ int main() {
         map->invert();
     }
 
-    while (!feof(input_file)) {
+    while (!feof(stdin)) {
         const char* value = new char[MAX_CSTRING_SIZE];
         scanf_s("%s", currentString, MAX_CSTRING_SIZE);
 
