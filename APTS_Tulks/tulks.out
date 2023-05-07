@@ -1,1 +1,37 @@
-bottle ?piena ?bija ?viena ?jo ?blakus ?gluda ?siena ?skaista girl go ?pec ?siena ?ko boy yesterday and today ?plaut and heap ?kraut 
+map contents
+0 key: palikt value: stay;    
+1 nullptr
+2 nullptr
+3 key: meitene value: girl;    3 key: but value: be;    
+4 key: skola value: school;    4 key: puika value: boy;    
+5 nullptr
+6 nullptr
+7 nullptr
+8 nullptr
+9 nullptr
+10 key: iet value: go;    
+11 nullptr
+12 nullptr
+13 nullptr
+14 key: skaists value: beautiful;    
+15 key: vakar value: yesterday;    15 key: istaba value: room;    
+map end
+map contents
+0 nullptr
+1 nullptr
+2 key: boy value: puika;    
+3 key: school value: skola;    
+4 nullptr
+5 nullptr
+6 key: room value: istaba;    
+7 key: girl value: meitene;    
+8 key: yesterday value: vakar;    
+9 nullptr
+10 key: stay value: palikt;    
+11 nullptr
+12 nullptr
+13 key: go value: iet;    
+14 key: be value: but;    
+15 key: beautiful value: skaists;    
+map end
+meitene vakar iet skola puika palikt istaba skola but skaists 

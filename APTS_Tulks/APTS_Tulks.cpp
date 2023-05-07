@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <iostream>
+#include <utility>
 
 const int MAX_CSTRING_SIZE = 21;
 const float LOAD_FACTOR = 0.75;
@@ -182,11 +184,11 @@ public:
             }
         }
 
-        //std::swap(buckets, inverted->buckets);
+        std::swap(buckets, inverted->buckets);
         //std::swap(size, inverted->size);
         //std::swap(capacity, inverted->capacity);
 
-        buckets = inverted->buckets;
+        //buckets = inverted->buckets;
         size = inverted->size;
         capacity = inverted->capacity;
 
@@ -194,27 +196,27 @@ public:
         delete inverted;
     }
 
-    //void print() {
-    //    std::cout << "map contents" << std::endl;
-    //    for (int i = 0; i < capacity; i++) {
-    //        Node* n = buckets[i];
-    //        
-    //        if (n == nullptr) {
-    //            std::cout << i << " nullptr" << std::endl;
-    //            continue;
-    //        }
+    void print() {
+        std::cout << "map contents" << std::endl;
+        for (int i = 0; i < capacity; i++) {
+            Node* n = buckets[i];
+            
+            if (n == nullptr) {
+                std::cout << i << " nullptr" << std::endl;
+                continue;
+            }
 
-    //        while (n != nullptr) {
-    //            std::cout << i << " key: " << n->key << " value: " << n->value << ";    ";
+            while (n != nullptr) {
+                std::cout << i << " key: " << n->key << " value: " << n->value << ";    ";
 
-    //            n = n->next;
-    //        }
+                n = n->next;
+            }
 
-    //        std::cout << std::endl;
-    //    }
+            std::cout << std::endl;
+        }
 
-    //    std::cout << "map end" << std::endl;
-    //}
+        std::cout << "map end" << std::endl;
+    }
 };
 
 int main() {
@@ -245,9 +247,13 @@ int main() {
     // key or value (essentially should the keys and values should be logically swapped in the map)
     //bool direction = currentString[0] == '-' ? false : true;
 
+    map->print();
+
     if (currentString[0] == '<') {
         map->invert();
     }
+
+    map->print();
 
     bool lastString = false;
     while (scanf("%s", currentString) != EOF) {
