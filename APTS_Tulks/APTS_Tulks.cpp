@@ -232,18 +232,18 @@ int main() {
     Map* map = new Map();
     char currentString[MAX_CSTRING_SIZE];
 
-    scanf_s("%s", currentString, MAX_CSTRING_SIZE);
+    scanf("%s", currentString);
 
     // putting the contents of the file into Map
     // || strcmp(currentString, "<--") != 0 || strcmp(currentString, "-->") != 0
     while ((currentString[0] != '-') && (currentString[0] != '<')) {
         char val[MAX_CSTRING_SIZE];
 
-        scanf_s("%s", val, MAX_CSTRING_SIZE);
+        scanf("%s", val);
 
         map->put(currentString, val);
 
-        scanf_s("%s", currentString, MAX_CSTRING_SIZE);
+        scanf("%s", currentString);
     }
 
     // the direction ('<--' or '-->') signifies whether to following text from file will need to be found/replaced by
@@ -256,7 +256,7 @@ int main() {
 
     while (!feof(stdin)) {
         const char* value = new char[MAX_CSTRING_SIZE];
-        scanf_s("%s", currentString, MAX_CSTRING_SIZE);
+        scanf("%s", currentString);
 
         value = map->get(currentString);
 
