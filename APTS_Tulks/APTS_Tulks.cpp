@@ -1,8 +1,8 @@
 #include <fstream>
 
 const int MAX_CSTRING_SIZE = 21;
-const float LOAD_FACTOR = 0.75;
-const int DEFAULT_CAPACITY = 16*16*16*8;
+const float LOAD_FACTOR = 1;
+const int DEFAULT_CAPACITY = 50001;//16*16*16*16
 
 namespace helpers {
     size_t strlen(const char* str) {
@@ -225,8 +225,14 @@ public:
     }
 };
 
+//#include <iostream>   
+//#include <chrono>
+
+
 int main() {
-    freopen("tulks.in", "r", stdin);
+    //auto start = std::chrono::steady_clock::now();
+    //C:/Users/hazya/OneDrive/Desktop/tulks.in
+    freopen("C:/Users/hazya/OneDrive/Desktop/tulks.in", "r", stdin);
     freopen("tulks.out", "w", stdout);
 
     Map* map = new Map();
@@ -274,6 +280,10 @@ int main() {
             printf(" ");
         }
     }
+
+    //auto end = std::chrono::steady_clock::now();
+    //std::chrono::duration<double> elapsed_seconds = end - start;
+    //std::cout<< std::endl << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
     return 0;
 }
